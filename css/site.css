@@ -54,7 +54,7 @@ html, body {
   right: 5px;*/
 }
 
-.simple-form label{
+.simple-form label, .title{
   font-weight: bold;
 }
 
@@ -86,4 +86,11 @@ header nav li {
   display: inline;
   margin-right: 5px;
   font-size: 12px;
+}
+
+.result {
+  border: solid 1px #444;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
 }

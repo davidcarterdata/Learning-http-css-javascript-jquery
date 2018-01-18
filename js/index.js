@@ -53,18 +53,47 @@ listItems.filter(":first").css("font-size", "18px");
 //
 // console.log(result.phoneNumber);
 
-var gitHubSearch = "https://api.github.com/search/repositories?q=jquery+language:javascript&sort=stars";
+$("#gitHubSearchForm").on("submit", function(event) {
 
-$.get(gitHubSearch, function(r) {
-//  console.log(r.items.length);
-    displayResults(r.items);
-  })
-  .fail(function (err) {
-    console.log("Failed to query GitHub");
-  })
-  .done(function () {
+  // Constructing the search request below
+  // var gitHubSearch = "https://api.github.com/search/repositories?q=jquery+language:javascript&sort=stars";
 
-  });
+  var searchPhrase = $("#searchPhrase").val();
+  var useStars = $("#useStars").val();
+  var langChoice = $("#langChoice").val();
+
+  if (searchPhrase) {
+
+    resultList.text("Performing Search...");
+
+    var gitHubSearch = "https://api.github.com/search/repositories?q=" + encodeURIComponent(searchPhrase);
+
+    if (langChoice != "ALL") {
+      gitHubSearch += "+language:" + encodeURIComponent(langChoice);
+    }
+
+    if (useStars) {
+      gitHubSearch += "&sort=stars";
+    }
+
+
+    $.get(gitHubSearch, function(r) {
+    //  console.log(r.items.length);
+        displayResults(r.items);
+      })
+      .fail(function (err) {
+        console.log("Failed to query GitHub");
+      })
+      .done(function () {
+        //
+      });
+  }
+
+  event.preventDefault();
+  console.log("Default form sumission prevented")
+});
+
+
 
 
 //Array of Objects
